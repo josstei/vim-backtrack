@@ -74,8 +74,8 @@ Set the `g:backtrack_split` variable in your config:
 
 | Value               | What it does                     |
 |---------------------|----------------------------------|
-| `''` (default)      | Uses your current window         |
-| `split`             | Opens in a horizontal split      |
+| `''`                | Uses your current window         |
+| `split`(default)    | Opens in a horizontal split      |
 | `vsplit`            | Opens in a vertical split        |
 | `botright split`    | Bottom horizontal split          |
 | `botright vsplit`   | Bottom right vertical split      |
