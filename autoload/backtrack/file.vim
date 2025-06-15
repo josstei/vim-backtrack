@@ -34,8 +34,8 @@ endfunction
 function! backtrack#file#Display() abort
     setlocal modifiable
 
-    call backtrack#buffer#Get()
     call backtrack#file#Reset()
+    call backtrack#buffer#Get()
     call backtrack#file#Set()
     call backtrack#file#Print()
 
@@ -44,6 +44,11 @@ endfunction
 
 function! backtrack#file#Navigate(index) abort
     if exists('s:recent_files') && a:index < len(s:recent_files)
+        call backtrack#buffer#Previous()
         execute 'edit ' . fnameescape(s:recent_files[a:index])
+        call backtrack#buffer#Close()
+        call backtrack#buffer#Previous()
+        unlet! g:backtrack_prev_winid
+        unlet! g:backtrack_list_winid
     endif
 endfunction
