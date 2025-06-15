@@ -44,6 +44,7 @@ endfunction
 
 function! backtrack#file#Navigate(index) abort
     if exists('s:recent_files') && a:index < len(s:recent_files)
+        setlocal modifiable
         call backtrack#buffer#Previous()
         execute 'edit ' . fnameescape(s:recent_files[a:index])
         call backtrack#buffer#Close()
