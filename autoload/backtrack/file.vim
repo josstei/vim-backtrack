@@ -34,6 +34,7 @@ endfunction
 function! backtrack#file#Display() abort
     setlocal modifiable
 
+    call backtrack#buffer#Get()
     call backtrack#file#Reset()
     call backtrack#file#Set()
     call backtrack#file#Print()
