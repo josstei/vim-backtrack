@@ -1,23 +1,34 @@
-let s:recent_files = []
-let s:recent_lines = []
+let s:recent_files      = []
+let s:recent_lines      = []
+let s:default_max_count = 10
+let s:max_count         = get(g:, 'backtrack_max_count', s:default_max_count)
+
+if s:max_count > 50
+  let s:max_count = 50
+endif
 
 function! backtrack#file#Set() abort
     let i = 1
     for file in v:oldfiles
         if filereadable(file)
             call add(s:recent_files, file)
-            call add(s:recent_lines, printf('   [%d]  %s', i % 10, fnamemodify(file, ':~')))
+            call add(s:recent_lines, printf('   [%02d]  %s', i, fnamemodify(file, ':~')))
             let i += 1
         endif
-        if i > 10 | break | endif
+        if i > s:max_count | break | endif
     endfor
 endfunction
 
 function! backtrack#file#Print() abort
     call append(line('$'), s:recent_lines)
-    for idx in range(len(s:recent_files))
-        let key = (idx + 1) % 10
-        execute printf("nnoremap <buffer> %d :call backtrack#file#Navigate(%d)<CR>", key, idx)
+    let count = len(s:recent_files)
+    for idx in range(count)
+        if idx < 9
+            let key = printf('%d', idx + 1)
+        else
+            let key = printf('%02d', idx + 1)
+        endif
+        execute printf("nnoremap <buffer> %s :call backtrack#file#Navigate(%d)<CR>", key, idx)
     endfor
 endfunction
 
@@ -46,9 +57,12 @@ function! backtrack#file#Navigate(index) abort
     if exists('s:recent_files') && a:index < len(s:recent_files)
         setlocal modifiable
         call backtrack#buffer#Previous()
+
         execute 'edit ' . fnameescape(s:recent_files[a:index])
+
         call backtrack#buffer#Close()
         call backtrack#buffer#Previous()
+
         unlet! g:backtrack_prev_winid
         unlet! g:backtrack_list_winid
     endif
