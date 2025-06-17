@@ -36,7 +36,7 @@ function! backtrack#file#Reset() abort
     let s:recent_files = []
     let s:recent_lines = []
 
-    let lnum = search('^\s*\[1\]\s', 'nw')
+    let lnum = search('^\s*\[01\]\s', 'nw')
     if lnum > 0
         execute lnum . ',$delete _'
     endif
