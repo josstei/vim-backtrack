@@ -1,3 +1,4 @@
+![Stable](https://img.shields.io/badge/status-stable-brightgreen) ![License](https://img.shields.io/badge/license-MIT-blue)
 # vim-backtrack
 
 **vim-backtrack** helps you quickly jump back to your recent files in Vim or Neovim. With a single command, you’ll see your most recently opened files (up to 50—user configurable). Just press a number to open one instantly. No fuss, no extra setup.
