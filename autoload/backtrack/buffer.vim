@@ -27,7 +27,17 @@ function! backtrack#buffer#Set(...) abort
         if l:split_cmd !=# ''
             execute l:split_cmd
             enew
-            setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
+            setlocal buftype=nofile
+            setlocal bufhidden=wipe
+            setlocal nobuflisted
+            setlocal noswapfile
+            setlocal nonumber norelativenumber
+            setlocal signcolumn=no
+            setlocal foldcolumn=0
+            setlocal nocursorline
+            setlocal modifiable
+            setlocal filetype=easydash
+            setlocal filetype=backtrack
             file [Backtrack List]
             let g:backtrack_winid = win_getid()
         endif
