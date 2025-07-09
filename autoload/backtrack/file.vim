@@ -4,7 +4,7 @@ let s:default_max_count = 10
 let s:max_count         = get(g:, 'backtrack_max_count', s:default_max_count)
 
 if s:max_count > 50
-  let s:max_count = 50
+    let s:max_count = 50
 endif
 
 function! backtrack#file#Set() abort
